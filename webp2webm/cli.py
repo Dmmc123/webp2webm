@@ -78,15 +78,15 @@ def merge_frames_into_webm(
 
 
 @click.command()
-@click.option("--webp-dir", required=True, type=str)
-@click.option("--webm-dir", required=True, type=str)
-@click.option("--temp-frames-dir", required=False, type=str, default="frames")
-@click.option("--max-fps", required=False, type=int, default=30)
-@click.option("--max-duration", required=False, type=int, default=3)
-@click.option("--crf", required=False, type=int, default=4)
-@click.option("--bitrate", required=False, type=str, default="100K")
-@click.option("--width", required=False, type=int, default=100)
-@click.option("--height", required=False, type=int, default=100)
+@click.option("--webp-dir", required=True, type=str, help="Folder that contains webp files")
+@click.option("--webm-dir", required=True, type=str, help="Folder that will contain the resulting webm files")
+@click.option("--temp-frames-dir", required=False, type=str, default="frames", help="Folder that would store frames of original webp files")
+@click.option("--max-fps", required=False, type=int, default=30, help="Maximum FPS of the resulting webm files")
+@click.option("--max-duration", required=False, type=int, default=3, help="Maximum duration of the resulting webm files in seconds")
+@click.option("--crf", required=False, type=int, default=4, help="Constant rate factor, the lower the CRF the more details are preserved during conversion")
+@click.option("--bitrate", required=False, type=str, default="100K", help="Output bitrate of the webm resulting file, the more the bitrate, the more details are preserved during conversion")
+@click.option("--width", required=False, type=int, default=100, help="Width of resulting webm files")
+@click.option("--height", required=False, type=int, default=100, help="Height of the resulting webm files")
 def run(
     webp_dir: str,
     webm_dir: str,
