@@ -5,6 +5,21 @@ import subprocess
 import click
 
 
+def pad_and_resize_image(image: Image) -> Image:
+    w, h = image.size
+    if h < w:  # handle rectangular emote frames
+        # create a new square image with a transparent background
+        new_image = Image.new("RGBA", (w, w), (0, 0, 0, 0))
+        # paste the original image at the bottom of the new square
+        offset = (0, w - h)
+        new_image.paste(image, offset)
+        # resize to square of smallest dimension
+        new_image = new_image.resize((h, h))
+        return new_image
+    else:  # normal frame
+        return image
+
+
 def extract_frames(webp_file: str, frames_dir: str) -> int:
     # validate the webp file nae
     webp_path = Path(webp_file)
@@ -18,6 +33,7 @@ def extract_frames(webp_file: str, frames_dir: str) -> int:
     try:
         while True:
             frame = im.convert("RGBA")
+            frame = pad_and_resize_image(image=frame)
             frames.append(frame)
             durations.append(im.info['duration'])
             im.seek(im.tell() + 1)
