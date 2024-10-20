@@ -42,7 +42,7 @@ def extract_frames(webp_file: str, frames_dir: str) -> int:
         pass
     # compute the approximate fps
     avg_duration = sum(durations) / len(durations)
-    fps = 1000 / avg_duration
+    fps = 1000 / avg_duration if avg_duration != 0.0 else 1
     # create folder for storing frames
     emote_name = webp_path.stem
     emote_frames_dir = Path(frames_dir) / emote_name
